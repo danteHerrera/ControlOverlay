@@ -1,0 +1,17 @@
+.name {
+    justify-content: left;
+    margin-left: 10px;
+}
+
+.boost {
+    left: 40px;
+}
+
+.meter {
+    left: 85px;
+    justify-content: end;
+}
+
+.meter span {
+    background-image: linear-gradient(to left, #FC0C0C, #FCFC0C);
+}
