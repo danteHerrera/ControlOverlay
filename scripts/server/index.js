@@ -10,8 +10,8 @@ wss.on("connection", ws => {
 
     ws.on("message", data => {
         let d;
-        console.log(`Client has sent us: ${data}`);
         if (data == "Connection Established") {
+            ws.send("Connection Establshed - Back End")
             return;
         }
         try {

@@ -44,62 +44,62 @@
 
             <div id="players-div">
                 <div class="players" id="blue-player-1">
-                    <p>-</p>
-                    <div class="bubble">
+                    <p id="player-name1">-</p>
+                    <div class="bubble" id="bubble-number1">
                         <p class="bubble-number">1</p>
                     </div>
                 </div>
                 <div class="players" id="blue-player-2">
-                    <p>-</p>
-                    <div class="bubble">
+                    <p id="player-name2">-</p>
+                    <div class="bubble" id="bubble-number2">
                         <p class="bubble-number">2</p>
                     </div>
                 </div>
                 <div class="players" id="blue-player-3">
-                    <p>-</p>
-                    <div class="bubble">
+                    <p id="player-name3">-</p>
+                    <div class="bubble" id="bubble-number3">
                         <p class="bubble-number">3</p>
                     </div>
                 </div>
                 <div class="players" id="blue-player-4">
-                    <p>-</p>
-                    <div class="bubble">
+                    <p id="player-name4">-</p>
+                    <div class="bubble" id="bubble-number4">
                         <p class="bubble-number">4</p>
                     </div>
                 </div>
                 <div class="players" id="orange-player-1">
-                    <p>-</p>
-                    <div class="bubble">
+                    <p id="player-name5">-</p>
+                    <div class="bubble" id="bubble-number5">
                         <p class="bubble-number">5</p>
                     </div>
                 </div>
                 <div class="players" id="orange-player-2">
-                    <p>-</p>
-                    <div class="bubble">
+                    <p id="player-name6">-</p>
+                    <div class="bubble" id="bubble-number6">
                         <p class="bubble-number">6</p>
                     </div>
                 </div>
                 <div class="players" id="orange-player-3">
-                    <p>-</p>
-                    <div class="bubble">
+                    <p id="player-name7">-</p>
+                    <div class="bubble" id="bubble-number7">
                         <p class="bubble-number">7</p>
                     </div>
                 </div>
                 <div class="players" id="orange-player-4">
-                    <p>-</p>
-                    <div class="bubble">
+                    <p id="player-name8">-</p>
+                    <div class="bubble" id="bubble-number8">
                         <p class="bubble-number">8</p>
                     </div>
                 </div>
                 <div class="players" id="spec-cam1">
                     <p>Director</p>
-                    <div class="bubble">
+                    <div class="bubble" id="bubble-number9" style="background-color: rgb(240, 240, 240)">
                         <p class="bubble-number">9</p>
                     </div>
                 </div>
                 <div class="players" id="spec-cam2">
                     <p>Autocam</p>
-                    <div class="bubble">
+                    <div class="bubble" id="bubble-number0">
                         <p class="bubble-number">0</p>
                     </div>
                 </div>
@@ -213,16 +213,16 @@
             let playerList = [];
             let teamNumList = [];
             let teamList = [];
-            for(var item in playerGameObj) {
+            for(let item in playerGameObj) {
                 if(playerGameObj.hasOwnProperty(item)) {
-                    var value = playerGameObj[item];
+                    let value = playerGameObj[item];
                     playerList.push(item);
                 }
             }
-            for(var player in playerList) {
+            for(let player in playerList) {
                 let primePlayer = playerList[player];
                 if (playerGameObj[primePlayer]['team'] == teamNum) {
-                    teamNumList.push(playerList[player]);
+                    teamNumList.push(playerGameObj[primePlayer]["name"]);
                 }
             }
             return teamNumList
@@ -241,7 +241,7 @@
             
         }
     </script>
-    <script type="module">
+    <!-- <script type="module">
         import { WsSubscribers } from './scripts/WS.js';
     
         $(() => {
@@ -289,7 +289,7 @@
         
         
         
-    </script>
+    </script> -->
 <!-- Value update script -->
     <script>
     const valueHandler = () => {
@@ -331,11 +331,12 @@
         };
 }
     </script>
-<!-- Server connection -->
-    <script>
+<!-- Server connections -->
+    <script type="module">
+        import { WsSubscribers } from './scripts/WS.js';
         const ws = new WebSocket("ws://localhost:8082");
 
-        button = document.getElementById("submit1");
+        let button = document.getElementById("submit1");
 
         button.addEventListener("click", () => { 
             // console.log(valueHandler());
@@ -348,10 +349,65 @@
             ws.send("Connection Established");
         })
 
+        $(() => {
+            WsSubscribers.init(49322, true);
+
+            WsSubscribers.subscribe("game", "update_state", (d) => {
+                ws.send(JSON.stringify(d));
+
+                $('#score-left').text(d['game']['teams'][0]['score'])
+                $('#score-right').text(d['game']['teams'][1]['score'])
+
+                //Time updater
+                $('#time').text((d['game']['isOT'] ? '+' : '') + secondsToTime(
+                    d['game']['time_seconds'], d['game']['time_milliseconds'], 
+                    d['game']['time_seconds'] < 60 && !d['game']['isOT'] && d['game']['time'] != 59, 
+                    d
+                ));
+    
+                let teamOne = findPlayers(d['players'], 0);
+                let teamTwo = findPlayers(d['players'], 1);
+                
+                //Player names
+                for (let i = 0; i < teamOne.length; i++) {
+                    let id = i+1;
+                    $('#player-name' + id).text(teamOne[i]);
+                    $('#bubble-number' + id).css("background-color", "rgb(3, 127, 252)");
+                }
+                for (let i = 0; i < teamTwo.length; i++) {
+                    let id = i+5;
+                    $('#player-name' + id).text(teamTwo[i]);
+                    $('#bubble-number' + id).css("background-color", "orange");
+                }
+
+                //Focused Player
+                let target = d['game']['target'];
+                try {
+                    $('#focused-player').text(d['players'][target]['name']);
+                } catch(e) {
+                    console.log('No player is focused.')
+                }
+                
+            })
+
+            WsSubscribers.subscribe("game", "match_created", (d) => {
+                // Team Names
+                if (teamOne[1] == null) {
+                    $('#team-left').text(teamOne[0]);
+                } else {
+                    $('#team-left').text(d['game']['teams'][0]['name']);
+                }
+                if (teamTwo[1] == null) {
+                    $('#team-right').text(teamTwo[0]);
+                } else {
+                    $('#team-right').text(d['game']['teams'][1]['name']);
+                }
+            })
+        })
+
         ws.addEventListener("message" , ({ data }) => {
             try {
-                let d = JSON.parse(data)
-                console.log(d);
+                let d = JSON.parse(data);
                 $('#series-title').text(d["seriesTitle"]);
                 $('#round-title').text(d["roundTitle"]);
                 $('#series-length-display').text(d["seriesLength"]);
@@ -360,9 +416,6 @@
                 console.log('Here is your raw data: ' + data)
                 console.log(`There was an error parsing: ${e.message}, this may be due to the string of "Connection Established - Back End"`);
             }
-            
-
-            
         })
     </script>
 </body>
