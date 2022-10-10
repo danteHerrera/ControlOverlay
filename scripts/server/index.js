@@ -9,12 +9,18 @@ wss.on("connection", ws => {
     console.log("New client connected!");
 
     ws.on("message", data => {
+        let d;
         console.log(`Client has sent us: ${data}`);
         if (data == "Connection Established") {
-            ws.send(data + " - Back End")
             return;
         }
-        ws.send(data);
+        try {
+            d = JSON.parse(data);
+            ws.send(JSON.stringify(d));
+        } catch (e) {
+            console.log(`Something went wrong with the message: ${e.message}`)
+        }
+        console.log(JSON.parse(data));
     })
 
     ws.on("close", () => {

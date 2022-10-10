@@ -207,6 +207,7 @@
         </div>
 
     </article>
+<!-- Scorebug scripts -->
     <script>
         const findPlayers = (playerGameObj, teamNum) => {
             let playerList = [];
@@ -289,6 +290,7 @@
         
         
     </script>
+<!-- Value update script -->
     <script>
     const valueHandler = () => {
         let seriesTitle, roundTitle, seriesLength, gameNumber, leftTeamName, rightTeamName, lTeamSScore, rTeamSScore;
@@ -314,8 +316,8 @@
         }
         leftTeamName = document.getElementById('form-value-input5').value;
         rightTeamName = document.getElementById('form-value-input6').value;
-        lTeamSScore = document.getElementById('form-value-input7').value;
-        rTeamSScore = document.getElementById('form-value-input8').value;
+        lTeamSScore = parseInt(document.getElementById('form-value-input7').value);
+        rTeamSScore = parseInt(document.getElementById('form-value-input8').value);
 
         return {
             seriesTitle,
@@ -335,9 +337,9 @@
 
         button = document.getElementById("submit1");
 
-        button.addEventListener("click", () => {
-            console.log(valueHandler());
-            ws.send(valueHandler());
+        button.addEventListener("click", () => { 
+            // console.log(valueHandler());
+            ws.send(JSON.stringify(valueHandler()));
         })
 
         ws.addEventListener("open", () => {
@@ -347,7 +349,20 @@
         })
 
         ws.addEventListener("message" , ({ data }) => {
-            console.log(data);
+            try {
+                let d = JSON.parse(data)
+                console.log(d);
+                $('#series-title').text(d["seriesTitle"]);
+                $('#round-title').text(d["roundTitle"]);
+                $('#series-length-display').text(d["seriesLength"]);
+                $('#game-number-display').text(d["gameNumber"]);
+            } catch(e) {
+                console.log('Here is your raw data: ' + data)
+                console.log(`There was an error parsing: ${e.message}, this may be due to the string of "Connection Established - Back End"`);
+            }
+            
+
+            
         })
     </script>
 </body>
