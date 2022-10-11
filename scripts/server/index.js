@@ -1,32 +1,24 @@
-const WebSocket = require("ws");
+// Look up https://karlhadwen.medium.com/node-js-websocket-tutorial-real-time-chat-room-using-multiple-clients-44a8e26a953e for clarity :)
+const express = require('express');
+const http = require('http');
+const WebSocket = require('ws');
 
-// Starts websocket server on port 8082
-const wss = new WebSocket.Server({ port: 8082 });
+const port = 6969;
+const server = http.createServer(express);
+const wss = new WebSocket.Server({ server })
 
-//Listen for a client connecting to server
-//ws refers to only one client, wss refers to actual server
-wss.on("connection", ws => {
-    console.log("New client connected!");
-
-    ws.on("message", data => {
-        let d;
-        if (data == "Connection Established") {
-            ws.send("Connection Establshed - Back End")
-            return;
-        }
-        try {
-            d = JSON.parse(data);
-            ws.send(JSON.stringify(d));
-        } catch (e) {
-            console.log(`Something went wrong with the message: ${e.message}`)
-        }
-        console.log(JSON.parse(data));
-    })
-
-    ws.on("close", () => {
-        console.log("Client has disconnected");
+wss.on('connection', function connection(ws) {
+    ws.on('message', function incoming(data) {
+        wss.clients.forEach(function each(client) {
+            if (client !== ws && client.readyState === 1) {
+                if (JSON.parse(data) instanceof Object) {
+                    client.send(JSON.stringify(JSON.parse(data)));
+                }
+            }
+        })
     })
 })
 
-
-// FIGURE OUT WHY IMPORT IS NOT WORKING!!!
+server.listen(port, function () {
+    console.log(`Server is listening on ${port}!`)
+})

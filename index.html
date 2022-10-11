@@ -333,90 +333,123 @@
     </script>
 <!-- Server connections -->
     <script type="module">
-        import { WsSubscribers } from './scripts/WS.js';
-        const ws = new WebSocket("ws://localhost:8082");
+        (function() {
+            const sendBtn = document.querySelector('#submit1');
 
-        let button = document.getElementById("submit1");
+            let ws;
 
-        button.addEventListener("click", () => { 
-            // console.log(valueHandler());
-            ws.send(JSON.stringify(valueHandler()));
-        })
-
-        ws.addEventListener("open", () => {
-            console.log("Connection Established - Front End");
-            
-            ws.send("Connection Established");
-        })
-
-        $(() => {
-            WsSubscribers.init(49322, true);
-
-            WsSubscribers.subscribe("game", "update_state", (d) => {
-                ws.send(JSON.stringify(d));
-
-                $('#score-left').text(d['game']['teams'][0]['score'])
-                $('#score-right').text(d['game']['teams'][1]['score'])
-
-                //Time updater
-                $('#time').text((d['game']['isOT'] ? '+' : '') + secondsToTime(
-                    d['game']['time_seconds'], d['game']['time_milliseconds'], 
-                    d['game']['time_seconds'] < 60 && !d['game']['isOT'] && d['game']['time'] != 59, 
-                    d
-                ));
-    
-                let teamOne = findPlayers(d['players'], 0);
-                let teamTwo = findPlayers(d['players'], 1);
-                
-                //Player names
-                for (let i = 0; i < teamOne.length; i++) {
-                    let id = i+1;
-                    $('#player-name' + id).text(teamOne[i]);
-                    $('#bubble-number' + id).css("background-color", "rgb(3, 127, 252)");
-                }
-                for (let i = 0; i < teamTwo.length; i++) {
-                    let id = i+5;
-                    $('#player-name' + id).text(teamTwo[i]);
-                    $('#bubble-number' + id).css("background-color", "orange");
-                }
-
-                //Focused Player
-                let target = d['game']['target'];
-                try {
-                    $('#focused-player').text(d['players'][target]['name']);
-                } catch(e) {
-                    console.log('No player is focused.')
-                }
-                
-            })
-
-            WsSubscribers.subscribe("game", "match_created", (d) => {
-                // Team Names
-                if (teamOne[1] == null) {
-                    $('#team-left').text(teamOne[0]);
-                } else {
-                    $('#team-left').text(d['game']['teams'][0]['name']);
-                }
-                if (teamTwo[1] == null) {
-                    $('#team-right').text(teamTwo[0]);
-                } else {
-                    $('#team-right').text(d['game']['teams'][1]['name']);
-                }
-            })
-        })
-
-        ws.addEventListener("message" , ({ data }) => {
-            try {
-                let d = JSON.parse(data);
-                $('#series-title').text(d["seriesTitle"]);
-                $('#round-title').text(d["roundTitle"]);
-                $('#series-length-display').text(d["seriesLength"]);
-                $('#game-number-display').text(d["gameNumber"]);
-            } catch(e) {
-                console.log('Here is your raw data: ' + data)
-                console.log(`There was an error parsing: ${e.message}, this may be due to the string of "Connection Established - Back End"`);
+            function showMessage(message) {
+                console.log("Our data was sent back: " + message);
             }
-        })
+
+            function init() {
+                if (ws) {
+                    ws.onerror = ws.onopen = ws.onclose = null;
+                    ws.close();
+                }
+
+                ws = new WebSocket('ws://localhost:6969');
+                ws.onopen = () => {
+                    console.log('Connection opened!');
+                }
+                ws.onmessage = ({ data }) => showMessage(data);
+                ws.onclose = function() {
+                    ws = null;
+                }
+            }
+
+            sendBtn.onclick = function() {
+                if (!ws) {
+                    showMessage("No WebSocket connection :(");
+                    return ;
+                }
+
+                ws.send(JSON.stringify(valueHandler()));
+            }
+
+            init();
+        })();
+
+
+        // button.addEventListener("click", () => { 
+        //     // console.log(valueHandler());
+        //     ws.send(JSON.stringify(valueHandler()));
+        // })
+
+        // ws.addEventListener("open", () => {
+        //     console.log("Connection Established - Front End");
+            
+        //     ws.send("Connection Established");
+        // })
+
+        // $(() => {
+        //     WsSubscribers.init(49322, true);
+
+        //     WsSubscribers.subscribe("game", "update_state", (d) => {
+        //         ws.send(JSON.stringify(d));
+
+        //         $('#score-left').text(d['game']['teams'][0]['score'])
+        //         $('#score-right').text(d['game']['teams'][1]['score'])
+
+        //         //Time updater
+        //         $('#time').text((d['game']['isOT'] ? '+' : '') + secondsToTime(
+        //             d['game']['time_seconds'], d['game']['time_milliseconds'], 
+        //             d['game']['time_seconds'] < 60 && !d['game']['isOT'] && d['game']['time'] != 59, 
+        //             d
+        //         ));
+    
+        //         let teamOne = findPlayers(d['players'], 0);
+        //         let teamTwo = findPlayers(d['players'], 1);
+                
+        //         //Player names
+        //         for (let i = 0; i < teamOne.length; i++) {
+        //             let id = i+1;
+        //             $('#player-name' + id).text(teamOne[i]);
+        //             $('#bubble-number' + id).css("background-color", "rgb(3, 127, 252)");
+        //         }
+        //         for (let i = 0; i < teamTwo.length; i++) {
+        //             let id = i+5;
+        //             $('#player-name' + id).text(teamTwo[i]);
+        //             $('#bubble-number' + id).css("background-color", "orange");
+        //         }
+
+        //         //Focused Player
+        //         let target = d['game']['target'];
+        //         try {
+        //             $('#focused-player').text(d['players'][target]['name']);
+        //         } catch(e) {
+        //             console.log('No player is focused.')
+        //         }
+                
+        //     })
+
+        //     WsSubscribers.subscribe("game", "match_created", (d) => {
+        //         // Team Names
+        //         if (teamOne[1] == null) {
+        //             $('#team-left').text(teamOne[0]);
+        //         } else {
+        //             $('#team-left').text(d['game']['teams'][0]['name']);
+        //         }
+        //         if (teamTwo[1] == null) {
+        //             $('#team-right').text(teamTwo[0]);
+        //         } else {
+        //             $('#team-right').text(d['game']['teams'][1]['name']);
+        //         }
+        //     })
+        // })
+
+        // ws.addEventListener("message" , ({ data }) => {
+        //     try {
+        //         let d = JSON.parse(data);
+        //         $('#series-title').text(d["seriesTitle"]);
+        //         $('#round-title').text(d["roundTitle"]);
+        //         $('#series-length-display').text(d["seriesLength"]);
+        //         $('#game-number-display').text(d["gameNumber"]);
+        //     } catch(e) {
+        //         console.log('Here is your raw data: ' + data)
+        //         console.log(`There was an error parsing: ${e.message}, this may be due to the string of "Connection Established - Back End"`);
+        //     }
+        // })
     </script>
 </body>
 </html>
