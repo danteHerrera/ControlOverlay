@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">   
-    <script type="module" src="scripts/valueHandler.js"></script>
+    <!-- <script type="module" src="scripts/valueHandler.js"></script> -->
 </head>
 <body>
     <header>
@@ -131,15 +131,15 @@
                 <!-- add action="javascript file here" to form divider ^^ -->
 
                 <div class="update-value-div">
-                <p class="form-value-label" id="form-value-label1">Series Title:</p>
+                <p class="form-value-label" id="form-value-label1">Series Title: *</p>
                 <div class="input-div"><input type="text" class="form-value-input" id="form-value-input1" placeholder="WIHSEA Regular Season" autocomplete="off"></div>
             </div>
             <div class="update-value-div">
-                <p class="form-value-label" id="form-value-label2">Round Title:</p>
+                <p class="form-value-label" id="form-value-label2">Round Title: *</p>
                 <div class="input-div"><input type="text" class="form-value-input" id="form-value-input2" placeholder="Week 1 | WSHS | BO7" autocomplete="off"></div>
             </div>
             <div class="update-value-div">
-                <p class="form-value-label" id="form-value-label3">Series Length:</p>
+                <p class="form-value-label" id="form-value-label3">Series Length: *</p>
                 <div id="series-length" class="input-div">
                     <label class="series-length-label" id="series-length1" for="series-length1">1</label>
                     <input type="radio" class="series-length" id="series-length1" name="series-length">
@@ -157,7 +157,7 @@
                 </div>
                 <div class="update-value-div">
             
-                <p class="form-value-label" id="form-value-label4">Game Number:</p>
+                <p class="form-value-label" id="form-value-label4">Game Number: *</p>
                 <div id="game-number" class="input-div">
                     <label class="game-number-label" id="game-number1" for="game-number1">1</label>
                     <input type="radio" class="game-number" id="game-number1" name="game-number">
@@ -191,11 +191,11 @@
                 <div class="input-div"><input type="text" class="form-value-input" id="form-value-input6" placeholder="Waukesha South" autocomplete="off"></div>
             </div>
             <div class="update-value-div">
-                <p class="form-value-label" id="form-value-label7">Left Team Series Score:</p>
+                <p class="form-value-label" id="form-value-label7">Left Team Series Score: *</p>
                 <div class="input-div"><input type="number" class="form-value-input" id="form-value-input7" placeholder="0" autocomplete="off"></div>
             </div>
             <div class="update-value-div">
-                <p class="form-value-label" id="form-value-label8">Right Team Series Score:</p>
+                <p class="form-value-label" id="form-value-label8">Right Team Series Score: *</p>
                 <div class="input-div"><input type="number" class="form-value-input" id="form-value-input8" placeholder="2" autocomplete="off"></div>
             </div>
                 <input type="submit" id="submit1" value="Update">
@@ -241,105 +241,23 @@
             
         }
     </script>
-    <!-- <script type="module">
-        import { WsSubscribers } from './scripts/WS.js';
-    
-        $(() => {
-            WsSubscribers.init(49322, true);
-    
-            WsSubscribers.subscribe("game", "match_created", () => {
-                $('#score-left').text('0');
-                $('#score-right').text('0');
-                $('#time').text('5:00');
-            });
-    
-            WsSubscribers.subscribe("game", "update_state", (d) => {
-                $('#time').text((d['game']['isOT'] ? '+' : '') + secondsToTime(
-                    d['game']['time_seconds'], d['game']['time_milliseconds'], 
-                    d['game']['time_seconds'] < 60 && !d['game']['isOT'] && d['game']['time'] != 59, 
-                    d
-                ))
-                
-                $('#score-left').text(d['game']['teams'][0]['score'])
-                $('#score-right').text(d['game']['teams'][1]['score'])
-    
-                let teamOne = findPlayers(d['players'], 0);
-                let teamTwo = findPlayers(d['players'], 1);
-                
-                if (teamOne[1] == null) {
-                    $('#team-right').text(teamOne[0]);
-                } else {
-                    $('#team-left').text(d['game']['teams'][0]['name']);
-                }
-                if (teamTwo[1] == null) {
-                    $('#team-right').text(teamTwo[0]);
-                } else {
-                    $('#team-right').text(d['game']['teams'][1]['name']);
-                }
-            });
-    
-            WsSubscribers.subscribe("game", "match_ended", (d) => {
-                $('#scorebug-transition').animate({opacity: 100}, {duration: 75, easing: "linear"});
-                $('#scorebug-container').animate({opacity: 0}, {duration: 75, easing: "linear"});
-                console.log("scorebug transition NOW");
-                $('#scorebug-transition').get(0).play();
-                setTimeout(() => {$('#scorebug-transition').animate({opacity: 0}, {duration: 1, easing: "linear"})}, 3000);
-            });
-        });
-        
-        
-        
-    </script> -->
-<!-- Value update script -->
-    <script>
-    const valueHandler = () => {
-        let seriesTitle, roundTitle, seriesLength, gameNumber, leftTeamName, rightTeamName, lTeamSScore, rTeamSScore;
-        const sLengthOptions = 7;
-        const gNumberOptions = 7;
-        seriesTitle = document.getElementById('form-value-input1').value;
-        roundTitle = document.getElementById('form-value-input2').value;
-        let i = 1;
-        while (i <= sLengthOptions) {
-            if (document.getElementById('series-length' + i).checked == true) {
-                seriesLength = i;
-                break;
-            }
-            i += 2;
-        }
-        i = 1;
-        while (i <= gNumberOptions) {
-            if (document.getElementById('game-number' + i).checked == true) {
-                gameNumber = i;
-                break;
-            }
-            i ++;
-        }
-        leftTeamName = document.getElementById('form-value-input5').value;
-        rightTeamName = document.getElementById('form-value-input6').value;
-        lTeamSScore = parseInt(document.getElementById('form-value-input7').value);
-        rTeamSScore = parseInt(document.getElementById('form-value-input8').value);
-
-        return {
-            seriesTitle,
-            roundTitle,
-            seriesLength,
-            gameNumber,
-            leftTeamName,
-            rightTeamName,
-            lTeamSScore,
-            rTeamSScore
-        };
-}
-    </script>
 <!-- Server connections -->
     <script type="module">
+        import { valueHandler } from "./scripts/valueHandler.js";
+
         (function() {
             const sendBtn = document.querySelector('#submit1');
-
             let ws;
 
-            function showMessage(message) {
-                console.log("Our data was sent back: " + message);
+            const controlPanelInfoHandler = (d) => {
+                $('#series-title').text(d["seriesTitle"]);
+                $('#round-title').text(d["roundTitle"]);
+                $('#series-length-display').text(d["seriesLength"]);
+                $('#game-number-display').text(d["gameNumber"]);
+                if(d.nameOverride) {
+                    $('#team-left').text(d["leftTeamName"]);
+                    $('#team-right').text(d["rightTeamName"]);
+                }
             }
 
             function init() {
@@ -352,35 +270,52 @@
                 ws.onopen = () => {
                     console.log('Connection opened!');
                 }
-                ws.onmessage = ({ data }) => showMessage(data);
+                ws.onmessage = ({ data }) => {
+                    try {
+                        let d = JSON.parse(data);
+                        if(d["event"] == "control-panel-info") {
+                            controlPanelInfoHandler(d);
+                        }
+                        if (d.event == "scorebug-event") {
+                            $("#time").text(d["time"]);
+                            $("#score-left").text(d["Score Left"]);
+                            $("#score-right").text(d["Score Right"]);
+                            $("#focused-player").text(d["Target"] == '' ? "N/A" : d["Target"]);
+
+                            let teamOne = d["Team One Roster"];
+                            let teamTwo = d["Team Two Roster"];
+
+                            for (let i = 0; i < teamOne.length; i++) {
+                                $("#player-name" + (i+1)).text(teamOne[i]); 
+                                $("#bubble-number" + (i+1)).css("background-color", "rgb(0, 119, 252)");
+                            } 
+                            for (let i = 0; i < teamTwo.length; i++) {
+                                $("#player-name" + (i+5)).text(teamTwo[i]); 
+                                $("#bubble-number" + (i+5)).css("background-color", "rgb(252, 115, 0)");
+                            }
+                        }
+                    } catch(e) {
+                        console.log('Here is your raw data: ' + data);
+                        console.log(`There was an error parsing: ${e.message}, this may be due to the string of "Connection opened!"`);
+                    }   
+                };
                 ws.onclose = function() {
                     ws = null;
                 }
             }
 
             sendBtn.onclick = function() {
+                let values;
                 if (!ws) {
-                    showMessage("No WebSocket connection :(");
-                    return ;
+                    console.log("No WebSocket connection :(");
+                    return;
                 }
-
                 ws.send(JSON.stringify(valueHandler()));
+                values = valueHandler;
+                controlPanelInfoHandler(valueHandler());
             }
-
             init();
         })();
-
-
-        // button.addEventListener("click", () => { 
-        //     // console.log(valueHandler());
-        //     ws.send(JSON.stringify(valueHandler()));
-        // })
-
-        // ws.addEventListener("open", () => {
-        //     console.log("Connection Established - Front End");
-            
-        //     ws.send("Connection Established");
-        // })
 
         // $(() => {
         //     WsSubscribers.init(49322, true);
@@ -437,19 +372,6 @@
         //         }
         //     })
         // })
-
-        // ws.addEventListener("message" , ({ data }) => {
-        //     try {
-        //         let d = JSON.parse(data);
-        //         $('#series-title').text(d["seriesTitle"]);
-        //         $('#round-title').text(d["roundTitle"]);
-        //         $('#series-length-display').text(d["seriesLength"]);
-        //         $('#game-number-display').text(d["gameNumber"]);
-        //     } catch(e) {
-        //         console.log('Here is your raw data: ' + data)
-        //         console.log(`There was an error parsing: ${e.message}, this may be due to the string of "Connection Established - Back End"`);
-        //     }
-        // })
-    </script>
+</script>
 </body>
 </html>

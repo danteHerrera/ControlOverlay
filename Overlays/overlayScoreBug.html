@@ -40,98 +40,64 @@
             </div>
         </div>
     </div>
+<script type="module">
 
-    <script>
-        const findPlayers = (playerGameObj, teamNum) => {
-            let playerList = [];
-            let teamNumList = [];
-            let teamList = [];
-            for(var item in playerGameObj) {
-                if(playerGameObj.hasOwnProperty(item)) {
-                    var value = playerGameObj[item];
-                    playerList.push(item);
-                }
-            }
-            for(var player in playerList) {
-                let primePlayer = playerList[player];
-                if (playerGameObj[primePlayer]['team'] == teamNum) {
-                    teamNumList.push(playerList[player]);
-                }
-            }
-            return teamNumList
-        };
-    </script>
-
-    <script>
-        const secondsToTime = (seconds, ms, showMs, gameObj) => {
-            if (seconds==0) {
-                return "00.0";
-            } if (showMs) {
-                if (ms%1==0) {ms = ms-1}
-                console.log((new Date(ms * 1000).toISOString().substr(showMs ? 17 : 15, 4)));
-                return (new Date(ms * 1000).toISOString().substr(showMs ? 17 : 15, 4));
-            }
-            return (new Date(seconds * 1000).toISOString().substr(showMs ? 17 : 15, 4));
+    (function() {
+        let ws;
+        let nameOverride = false;
+        function init() {
+            let nameLeft, nameRight;
             
+            if (ws) {
+                ws.onerror = ws.onopen = ws.onclose = null;
+                ws.close();
+            }
+
+            ws = new WebSocket('ws://localhost:6969');
+            ws.onopen = () => {
+                console.log('Connection opened!');
+            }
+            ws.onmessage = ({ data }) => {
+                try {
+
+                    
+
+                    let d = JSON.parse(data);
+                    if (d.event == "scorebug-event") {
+                        $("#time").text(d["time"]);
+                        $("#score-left").text(d["Score Left"]);
+                        $("#score-right").text(d["Score Right"]);
+
+                        // $("#focused-player").text(d["Target"] == '' ? "N/A" : d["Target"]);
+                    }
+                    
+                    if (d.event == "control-panel-info") {
+                        nameOverride = d["nameOverride"];
+                    }
+
+                    if (d.event == "team-names") {
+                        if(nameOverride) {
+                            console.log(nameOverride);
+                            console.log(d["Team Left"]);
+                            $("#name-left").text(d["Team Left Override"]);
+                            $("#name-right").text(d["Team Right Override"]);
+                        } else {
+                            console.log(nameOverride);
+                            $("#name-left").text(d["Team Left"]);
+                            $("#name-right").text(d["Team Right"]);
+                        }
+                    }
+                } catch(e) {
+                    console.log('Here is your raw data: ' + data);
+                    console.log(`There was an error parsing: ${e.message}`);
+                }   
+            };
+            ws.onclose = function() {
+                ws = null;
+            }
         }
-    </script>
-    <script type="module">
-    import { WsSubscribers } from './scripts/WS.js';
-
-    $(() => {
-        WsSubscribers.init(49322, true);
-
-        WsSubscribers.subscribe("game", "match_created", () => {
-            $('#score-left').text('0');
-            $('#score-right').text('0');
-            $('#time').text('5:00');
-        });
-
-        WsSubscribers.subscribe("game", "update_state", (d) => {
-            $('.scorebug .time #time').text((d['game']['isOT'] ? '+' : '') + secondsToTime(d['game']['time_seconds'], d['game']['time_milliseconds'], d['game']['time_seconds'] < 60 && !d['game']['isOT'] && d['game']['time'] != 59, d))
-            
-            $('.scorebug .team-left .left-score #score-left').text(d['game']['teams'][0]['score'])
-            $('.scorebug .team-right .right-score #score-right').text(d['game']['teams'][1]['score'])
-
-            let teamOne = findPlayers(d['players'], 0);
-            let teamTwo = findPlayers(d['players'], 1);
-            
-            if (teamOne[1] == null) {
-                $('.scorebug .team-right .right-name #name-right').text(teamOne[0]);
-            } else {
-                $('.scorebug .team-left .left-name #name-left').text(d['game']['teams'][0]['name']);
-            }
-            if (teamTwo[1] == null) {
-                $('.scorebug .team-right .right-name #name-right').text(teamTwo[0]);
-            } else {
-                $('.scorebug .team-right .right-name #name-right').text(d['game']['teams'][1]['name']);
-            }
-        });
-
-        WsSubscribers.subscribe("game", "replay_start", (d) => {
-            $('.scorebug').hide()
-        })
-
-        WsSubscribers.subscribe("game", "replay_end", (d) => {
-            $('.scorebug').show()
-        })
-
-        WsSubscribers.subscribe("game", "match_ended", (d) => {
-            $('#scorebug-transition').animate({opacity: 100}, {duration: 75, easing: "linear"});
-            $('#scorebug-container').animate({opacity: 0}, {duration: 75, easing: "linear"});
-            console.log("scorebug transition NOW");
-            $('#scorebug-transition').get(0).play();
-            setTimeout(() => {$('#scorebug-transition').animate({opacity: 0}, {duration: 1, easing: "linear"})}, 3000);
-        });
-
-        WsSubscribers.subscribe("game", "post_countdown_begin", (d) => {
-            $('#scorebug-transition').animate({opacity: 0}, {duration: 75, easing: "linear"})
-            $('#scorebug-container').animate({opacity: 100}, {duration: 75, easing: "linear"})
-        });
-    });
-    
-    
-    
+        init();
+    })();
     </script>
 </body>
 </html>

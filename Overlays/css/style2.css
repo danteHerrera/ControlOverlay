@@ -9,9 +9,9 @@
     transition: all .25 ease-in-out;
 }
 
-div.player-2, div.player-3 {
+/* div.player-2, div.player-3 {
     display: none;
-}
+} */
 
 h1, h2 {
     height: fit-content;

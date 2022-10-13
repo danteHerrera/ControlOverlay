@@ -75,7 +75,7 @@
         }
     </script>
     <script type="module">
-    import { WsSubscribers } from './scripts/WS.js';
+    import { WsSubscribers } from '../scripts/WS.js';
 
     $(() => {
         WsSubscribers.init(49322, true);
@@ -88,18 +88,18 @@
             $('#boost1').text(d['players'][teamOne[0]]['boost']);
             $("#value-1").animate({width: d['players'][teamOne[0]]['boost'] + '%'}, {duration: 90, easing: "linear"})
             
-            if (teamOne[1] == true) {
+            // if (teamOne[1] == true) {
                 $('#name2').text(d['players'][teamOne[1]]['name']);
                 $('#boost2').text(d['players'][teamOne[1]]['boost']);
                 $("#value-2").animate({width: d['players'][teamOne[1]]['boost'] + '%'}, {duration: 90, easing: "linear"})
                 $('.player-2').show();
-            }
-            if (teamOne[2] == true) {
+            // }
+            // if (teamOne[2] == true) {
                 $('#name3').text(d['players'][teamOne[2]]['name']);
                 $('#boost3').text(d['players'][teamOne[2]]['boost']);
                 $("#value-3").animate({width: d['players'][teamOne[2]]['boost'] + '%'}, {duration: 90, easing: "linear"})
                 $('.player-2').show();
-            }
+            // }
 
         });
         WsSubscribers.subscribe("game", "replay_start", (d) => {
