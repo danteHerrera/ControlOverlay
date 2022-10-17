@@ -22,6 +22,10 @@ img, video {
     opacity: 0;
 }
 
+#games-left, #games-right {
+    z-index: 200;
+}
+
 #name-left, #name-right {
     line-height: 35px;
     padding: 10px;
@@ -89,4 +93,17 @@ img, video {
 
 #crawl {
     padding-bottom: 15px;
+}
+
+.lower-info {
+    display: flex;
+    left: 320px;
+    position: absolute;
+    height: 155px;
+    width: 360px;
+    text-align: center;
+    justify-content: center;
+    align-items: flex-end;
+    box-sizing: border-box;
+    padding-bottom: 27px;
 }

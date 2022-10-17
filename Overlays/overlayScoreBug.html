@@ -18,13 +18,24 @@
             <source src="images/scorebug/transitions/Final.avi" type="video/avi">
         </video>
         <div id="scorebug-container">
-            <img src="images/scorebug/Scorebug.png" id="scorebug" width="1000px">
+            <img src="images/scorebug/Scorebug G7.png" id="scorebug" width="1000px">
+            <img src="images/scorebug/Games/Scorebug No Games.png" id="games-left" width="1000px">
+            <img src="images/scorebug/Games/Scorebug No Games.png" id="games-right" width="1000px">
+
+            <div id="bCrop">
+                <img src="images/scorebug/Games/Scorebug_bluecover7.png" id="bCover" width="1000px">
+            </div>
+            
+            <div id="oCrop">
+                <img src="images/scorebug/Games/Scorebug_orangecover7.png" id="oCover" width="1000px">
+            </div>
+            
             <div class="team-left">
                 <div class="left-name">
-                    <h1 id="name-left">teamName</h1>
+                    <h1 id="name-left">BLUE</h1>
                 </div>
                 <div class="left-score">
-                    <h1 id="score-left">99</h1>
+                    <h1 id="score-left">0</h1>
                 </div>
             </div>
             <div class="time">
@@ -32,18 +43,21 @@
             </div>
             <div class="team-right">
                 <div class="right-name">
-                    <h1 id="name-right">teamName</h1>
+                    <h1 id="name-right">ORANGE</h1>
                 </div>
                 <div class="right-score">
-                    <h1 id="score-right">99</h1>
+                    <h1 id="score-right">0</h1>
                 </div>
+            </div>
+            <div class="lower-info">
+                <h1 id="lower"></h1>
             </div>
         </div>
     </div>
 <script type="module">
 
     (function() {
-        let ws;
+        let ws, sLength, lWins, rWins;
         let nameOverride = false;
         function init() {
             let nameLeft, nameRight;
@@ -73,6 +87,27 @@
                     
                     if (d.event == "control-panel-info") {
                         nameOverride = d["nameOverride"];
+
+                        sLength = d["seriesLength"];
+                        if (sLength == 1 || sLength ==  3 || sLength == 5 || sLength == 7){
+                            $("#bCover").attr("src", "images/scorebug/Games/Scorebug_bluecover" + sLength + ".png");
+                            $("#oCover").attr("src", "images/scorebug/Games/Scorebug_orangecover" + sLength + ".png");
+                        }
+
+                        $("#lower").text(d["roundTitle"])
+
+                        lWins = d["lTeamSScore"];
+                        rWins = d["rTeamSScore"];
+                        if (lWins != '' || rWins != ''){
+                            $("#games-left").attr("src", "images/scorebug/Games/Scorebug G7 - Left " + lWins + ".png");
+                            $("#games-right").attr("src", "images/scorebug/Games/Scorebug G7 - Right " + rWins + ".png");
+                        }
+                        if (lWins == '') {
+                            $("#games-left").attr("src", "images/scorebug/Games/Scorebug No Games.png");
+                        }
+                        if (rWins == '') {
+                            $("#games-right").attr("src", "images/scorebug/Games/Scorebug No Games.png");
+                        }
                     }
 
                     if (d.event == "team-names") {
@@ -87,6 +122,8 @@
                             $("#name-right").text(d["Team Right"]);
                         }
                     }
+
+
                 } catch(e) {
                     console.log('Here is your raw data: ' + data);
                     console.log(`There was an error parsing: ${e.message}`);
