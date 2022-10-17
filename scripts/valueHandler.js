@@ -40,8 +40,8 @@ const valueHandler = () => {
     let seriesLength = 1;
     let gameNumber = 1;
 
-    let lTeamSScore = 1;
-    let rTeamSScore = 1;
+    let lTeamSScore = 0;
+    let rTeamSScore = 0;
     let nameOverride = false;
 
     const sLengthOptions = 7;
@@ -155,7 +155,7 @@ $(() => {
         }))
     })
 
-    WsSubscribers.subscribe("game", "match_created", (d) => {
+    WsSubscribers.subscribe("game", "match_ended", (d) => {
 
     })
 })

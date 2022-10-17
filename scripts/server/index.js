@@ -1,4 +1,3 @@
-// Look up https://karlhadwen.medium.com/node-js-websocket-tutorial-real-time-chat-room-using-multiple-clients-44a8e26a953e for clarity :)
 const express = require('express');
 const http = require('http');
 const WebSocket = require('ws');
