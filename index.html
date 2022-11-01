@@ -1,377 +1,595 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Overlay Control Panel</title>
-    <link rel="stylesheet" href="./Control Page/style.css">
+    <link rel="stylesheet" href="./Control Page/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&family=Source+Sans+Pro:wght@300;400;700&display=swap" rel="stylesheet">   
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&family=Source+Sans+Pro:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- <script type="module" src="scripts/valueHandler.js"></script> -->
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>Overlay Control Panel</h1>
+      <h1>Overlay Control Panel</h1>
     </header>
     <article>
-        <div class="section" id="current-match">
-            <h2>Current Match</h2>
+      <div class="section" id="current-match">
+        <h2>Current Match</h2>
 
-            <div id="scorebug-info">
-                <p id="score-left" class="scorebug-info-p">0</p>
-                <p class="scorebug-info-p">-</p>
-                <p id="time" class="scorebug-info-p">5:00</p>
-                <p class="scorebug-info-p">-</p>
-                <p id="score-right" class="scorebug-info-p">0</p>
-            </div>
-
-            <div id="team-info">
-                <p id="team-left" class="team-info-p">Blue</p>
-                <p id="vs" class="team-info-p">VS</p>
-                <p id="team-right" class="team-info-p">Orange</p>
-            </div>
-
+        <div id="scorebug-info">
+          <p id="score-left" class="scorebug-info-p">0</p>
+          <p class="scorebug-info-p">-</p>
+          <p id="time" class="scorebug-info-p">5:00</p>
+          <p class="scorebug-info-p">-</p>
+          <p id="score-right" class="scorebug-info-p">0</p>
         </div>
 
-        <div class="section" id="camera-info">
-            <h2>Camera Information</h2>
-            <div id="focused-player-div">
-                <p class="focused-player">Focused player: <span id="focused-player">N/A</span></p>
-            </div>
+        <div id="team-info">
+          <p id="team-left" class="team-info-p">Blue</p>
+          <p id="vs" class="team-info-p">VS</p>
+          <p id="team-right" class="team-info-p">Orange</p>
+        </div>
+      </div>
 
-            <div id="players-div">
-                <div class="players" id="blue-player-1">
-                    <p id="player-name1">-</p>
-                    <div class="bubble" id="bubble-number1">
-                        <p class="bubble-number">1</p>
-                    </div>
-                </div>
-                <div class="players" id="blue-player-2">
-                    <p id="player-name2">-</p>
-                    <div class="bubble" id="bubble-number2">
-                        <p class="bubble-number">2</p>
-                    </div>
-                </div>
-                <div class="players" id="blue-player-3">
-                    <p id="player-name3">-</p>
-                    <div class="bubble" id="bubble-number3">
-                        <p class="bubble-number">3</p>
-                    </div>
-                </div>
-                <div class="players" id="blue-player-4">
-                    <p id="player-name4">-</p>
-                    <div class="bubble" id="bubble-number4">
-                        <p class="bubble-number">4</p>
-                    </div>
-                </div>
-                <div class="players" id="orange-player-1">
-                    <p id="player-name5">-</p>
-                    <div class="bubble" id="bubble-number5">
-                        <p class="bubble-number">5</p>
-                    </div>
-                </div>
-                <div class="players" id="orange-player-2">
-                    <p id="player-name6">-</p>
-                    <div class="bubble" id="bubble-number6">
-                        <p class="bubble-number">6</p>
-                    </div>
-                </div>
-                <div class="players" id="orange-player-3">
-                    <p id="player-name7">-</p>
-                    <div class="bubble" id="bubble-number7">
-                        <p class="bubble-number">7</p>
-                    </div>
-                </div>
-                <div class="players" id="orange-player-4">
-                    <p id="player-name8">-</p>
-                    <div class="bubble" id="bubble-number8">
-                        <p class="bubble-number">8</p>
-                    </div>
-                </div>
-                <div class="players" id="spec-cam1">
-                    <p>Director</p>
-                    <div class="bubble" id="bubble-number9" style="background-color: rgb(240, 240, 240)">
-                        <p class="bubble-number">9</p>
-                    </div>
-                </div>
-                <div class="players" id="spec-cam2">
-                    <p>Autocam</p>
-                    <div class="bubble" id="bubble-number0">
-                        <p class="bubble-number">0</p>
-                    </div>
-                </div>
-            </div>
-
+      <div class="section" id="camera-info">
+        <h2>Camera Information</h2>
+        <div id="focused-player-div">
+          <p class="focused-player">
+            Focused player: <span id="focused-player">N/A</span>
+          </p>
         </div>
 
-        <div class="section" id="stream-info">
-            <h2>Stream Information</h2>
-            <div class="stream-info-div" id="series-title-div">
-                <h3>Series Title</h3>
-                <p id="series-title">WISHEA Regular Season</p>
+        <div id="players-div">
+          <div class="players" id="blue-player-1">
+            <p id="player-name1">-</p>
+            <div class="bubble" id="bubble-number1">
+              <p class="bubble-number">1</p>
             </div>
-            <div class="stream-info-div" id="round-title-div">
-                <h3>Round Title</h3>
-                <p id="round-title">Week 1 | WSHS | BO7</p>
+          </div>
+          <div class="players" id="blue-player-2">
+            <p id="player-name2">-</p>
+            <div class="bubble" id="bubble-number2">
+              <p class="bubble-number">2</p>
             </div>
-            <div class="stream-info-div" id="series-details-div">
-                <h3>Series Details</h3>
-                <p>Series Length: <span id="series-length-display">5</span></p>
-                <p>Game Number: <span id="game-number-display">1</span></p>
+          </div>
+          <div class="players" id="blue-player-3">
+            <p id="player-name3">-</p>
+            <div class="bubble" id="bubble-number3">
+              <p class="bubble-number">3</p>
             </div>
+          </div>
+          <div class="players" id="blue-player-4">
+            <p id="player-name4">-</p>
+            <div class="bubble" id="bubble-number4">
+              <p class="bubble-number">4</p>
+            </div>
+          </div>
+          <div class="players" id="orange-player-1">
+            <p id="player-name5">-</p>
+            <div class="bubble" id="bubble-number5">
+              <p class="bubble-number">5</p>
+            </div>
+          </div>
+          <div class="players" id="orange-player-2">
+            <p id="player-name6">-</p>
+            <div class="bubble" id="bubble-number6">
+              <p class="bubble-number">6</p>
+            </div>
+          </div>
+          <div class="players" id="orange-player-3">
+            <p id="player-name7">-</p>
+            <div class="bubble" id="bubble-number7">
+              <p class="bubble-number">7</p>
+            </div>
+          </div>
+          <div class="players" id="orange-player-4">
+            <p id="player-name8">-</p>
+            <div class="bubble" id="bubble-number8">
+              <p class="bubble-number">8</p>
+            </div>
+          </div>
+          <div class="players" id="spec-cam1">
+            <p>Director</p>
+            <div
+              class="bubble"
+              id="bubble-number9"
+              style="background-color: rgb(240, 240, 240)"
+            >
+              <p class="bubble-number">9</p>
+            </div>
+          </div>
+          <div class="players" id="spec-cam2">
+            <p>Autocam</p>
+            <div class="bubble" id="bubble-number0">
+              <p class="bubble-number">0</p>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div class="section" id="update-values" >
-            
-            <h2>Update Values</h2>
-            <form class="form-values" id="form-values1" onsubmit="return false;">
-                <!-- add action="javascript file here" to form divider ^^ -->
-
-                <div class="update-value-div">
-                <p class="form-value-label" id="form-value-label1">Series Title: *</p>
-                <div class="input-div"><input type="text" class="form-value-input" id="form-value-input1" placeholder="WIHSEA Regular Season" autocomplete="off"></div>
-            </div>
-            <div class="update-value-div">
-                <p class="form-value-label" id="form-value-label2">Round Title: *</p>
-                <div class="input-div"><input type="text" class="form-value-input" id="form-value-input2" placeholder="Week 1 | WSHS | BO7" autocomplete="off"></div>
-            </div>
-            <div class="update-value-div">
-                <p class="form-value-label" id="form-value-label3">Series Length: *</p>
-                <div id="series-length" class="input-div">
-                    <label class="series-length-label" id="series-length1" for="series-length1">1</label>
-                    <input type="radio" class="series-length" id="series-length1" name="series-length">
-
-                    <label class="series-length-label" for="series-length3">3</label>
-                    <input type="radio" class="series-length" id="series-length3" name="series-length">
-
-                    <label class="series-length-label" for="series-length5">5</label>
-                    <input type="radio" class="series-length" id="series-length5" name="series-length">
-
-                    <label class="series-length-label" for="series-length7">7</label>
-                    <input type="radio" class="series-length" id="series-length7" name="series-length">
-
-                </div>
-                </div>
-                <div class="update-value-div">
-            
-                <p class="form-value-label" id="form-value-label4">Game Number: *</p>
-                <div id="game-number" class="input-div">
-                    <label class="game-number-label" id="game-number1" for="game-number1">1</label>
-                    <input type="radio" class="game-number" id="game-number1" name="game-number">
-
-                    <label class="game-number-label" for="game-number2">2</label>
-                    <input type="radio" class="game-number" id="game-number2" name="game-number">
-
-                    <label class="game-number-label" for="game-number3">3</label>
-                    <input type="radio" class="game-number" id="game-number3" name="game-number">
-
-                    <label class="game-number-label" for="game-number4">4</label>
-                    <input type="radio" class="game-number" id="game-number4" name="game-number">
-
-                    <label class="game-number-label" for="game-number5">5</label>
-                    <input type="radio" class="game-number" id="game-number5" name="game-number">
-
-                    <label class="game-number-label" for="game-number6">6</label>
-                    <input type="radio" class="game-number" id="game-number6" name="game-number">
-
-                    <label class="game-number-label" for="game-number7">7</label>
-                    <input type="radio" class="game-number" id="game-number7" name="game-number">
-
-                </div>
-            </div>
-            <div class="update-value-div">
-                <p class="form-value-label" id="form-value-label5">Left Team Name:</p>
-                <div class="input-div"><input type="text" class="form-value-input" id="form-value-input5" placeholder="Oak Creek" autocomplete="off"></div>
-            </div>
-            <div class="update-value-div">
-                <p class="form-value-label" id="form-value-label6">Right Team Name:</p>
-                <div class="input-div"><input type="text" class="form-value-input" id="form-value-input6" placeholder="Waukesha South" autocomplete="off"></div>
-            </div>
-            <div class="update-value-div">
-                <p class="form-value-label" id="form-value-label7">Left Team Series Score: *</p>
-                <div class="input-div"><input type="number" class="form-value-input" id="form-value-input7" placeholder="0" autocomplete="off"></div>
-            </div>
-            <div class="update-value-div">
-                <p class="form-value-label" id="form-value-label8">Right Team Series Score: *</p>
-                <div class="input-div"><input type="number" class="form-value-input" id="form-value-input8" placeholder="2" autocomplete="off"></div>
-            </div>
-                <input type="submit" id="submit1" value="Update">
-            </form>
+      <div class="section" id="stream-info">
+        <h2>Stream Information</h2>
+        <div class="stream-info-div" id="series-title-div">
+          <h3>Series Title</h3>
+          <p id="series-title">WISHEA Regular Season</p>
         </div>
-
-        <div class="section" id="styling">
-            <h2>Styling (WIP - color and image functionality coming soon!)</h2>
+        <div class="stream-info-div" id="round-title-div">
+          <h3>Round Title</h3>
+          <p id="round-title">Week 1 | WSHS | BO7</p>
         </div>
+        <div class="stream-info-div" id="series-details-div">
+          <h3>Series Details</h3>
+          <p>Series Length: <span id="series-length-display">5</span></p>
+          <p>Game Number: <span id="game-number-display">1</span></p>
+        </div>
+      </div>
 
+      <div class="section" id="update-values">
+        <h2>Update Values</h2>
+        <form class="form-values" id="form-values1" onsubmit="return false;">
+          <!-- add action="javascript file here" to form divider ^^ -->
+
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label1">Series Title:</p>
+            <div class="input-div">
+              <input
+                type="text"
+                class="form-value-input"
+                id="form-value-input1"
+                placeholder="WIHSEA Regular Season"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label2">Round Title:</p>
+            <div class="input-div">
+              <input
+                type="text"
+                class="form-value-input"
+                id="form-value-input2"
+                placeholder="Week 1 | WSHS | BO7"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label3">
+              Series Length:
+            </p>
+            <div id="series-length" class="input-div">
+              <label
+                class="series-length-label"
+                id="series-length1"
+                for="series-length1"
+                >1</label
+              >
+              <input
+                type="radio"
+                class="series-length"
+                id="series-length1"
+                name="series-length"
+              />
+
+              <label class="series-length-label" for="series-length3">3</label>
+              <input
+                type="radio"
+                class="series-length"
+                id="series-length3"
+                name="series-length"
+              />
+
+              <label class="series-length-label" for="series-length5">5</label>
+              <input
+                type="radio"
+                class="series-length"
+                id="series-length5"
+                name="series-length"
+              />
+
+              <label class="series-length-label" for="series-length7">7</label>
+              <input
+                type="radio"
+                class="series-length"
+                id="series-length7"
+                name="series-length"
+              />
+            </div>
+          </div>
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label4">Game Number:</p>
+            <div id="game-number" class="input-div">
+              <label
+                class="game-number-label"
+                id="game-number1"
+                for="game-number1"
+                >1</label
+              >
+              <input
+                type="radio"
+                class="game-number"
+                id="game-number1"
+                name="game-number"
+              />
+
+              <label class="game-number-label" for="game-number2">2</label>
+              <input
+                type="radio"
+                class="game-number"
+                id="game-number2"
+                name="game-number"
+              />
+
+              <label class="game-number-label" for="game-number3">3</label>
+              <input
+                type="radio"
+                class="game-number"
+                id="game-number3"
+                name="game-number"
+              />
+
+              <label class="game-number-label" for="game-number4">4</label>
+              <input
+                type="radio"
+                class="game-number"
+                id="game-number4"
+                name="game-number"
+              />
+
+              <label class="game-number-label" for="game-number5">5</label>
+              <input
+                type="radio"
+                class="game-number"
+                id="game-number5"
+                name="game-number"
+              />
+
+              <label class="game-number-label" for="game-number6">6</label>
+              <input
+                type="radio"
+                class="game-number"
+                id="game-number6"
+                name="game-number"
+              />
+
+              <label class="game-number-label" for="game-number7">7</label>
+              <input
+                type="radio"
+                class="game-number"
+                id="game-number7"
+                name="game-number"
+              />
+            </div>
+          </div>
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label5">
+              Left Team Name:
+            </p>
+            <div class="input-div">
+              <input
+                type="text"
+                class="form-value-input"
+                id="form-value-input5"
+                placeholder="Oak Creek"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label6">
+              Right Team Name:
+            </p>
+            <div class="input-div">
+              <input
+                type="text"
+                class="form-value-input"
+                id="form-value-input6"
+                placeholder="Waukesha South"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label7">
+              Left Team Series Score:
+            </p>
+            <div class="input-div">
+              <input
+                type="number"
+                class="form-value-input"
+                id="form-value-input7"
+                placeholder="0"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label8">
+              Right Team Series Score:
+            </p>
+            <div class="input-div">
+              <input
+                type="number"
+                class="form-value-input"
+                id="form-value-input8"
+                placeholder="2"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <input type="submit" id="submit1" value="Update" />
+        </form>
+      </div>
+
+      <div class="section" id="styling">
+        <h2>Styling (WIP - color and image in the works!)</h2>
+        <h3>idk when it will be done its difficult my guy</h3>
+        <form id="team-values" class="form-values" onsubmit="return false;">
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label2">
+              Team One Primary Color:
+            </p>
+            <div class="input-div">
+              <input
+                type="text"
+                class="form-value-input"
+                id="team-one-prim"
+                placeholder="#ffffff"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label2">
+              Team One Secondary Color:
+            </p>
+            <div class="input-div">
+              <input
+                type="text"
+                class="form-value-input"
+                id="team-one-sec"
+                placeholder="#ffffff"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label2">
+              Team Two Primary Color:
+            </p>
+            <div class="input-div">
+              <input
+                type="text"
+                class="form-value-input"
+                id="team-two-prim"
+                placeholder="#ffffff"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label2">
+              Team Two Secondary Color:
+            </p>
+            <div class="input-div">
+              <input
+                type="text"
+                class="form-value-input"
+                id="team-two-sec"
+                placeholder="#ffffff"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label2">
+              Team One Text Color:
+            </p>
+            <div class="input-div">
+              <input
+                type="text"
+                class="form-value-input"
+                id="team-one-text"
+                placeholder="i dont think these work rn"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label2">
+              Team Two Text Color:
+            </p>
+            <div class="input-div">
+              <input
+                type="text"
+                class="form-value-input"
+                id="team-two-text"
+                placeholder="i dont think these work rn"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label2">
+              Team One Logo (add to 0-EDITME and just input file name)
+            </p>
+            <div class="input-div">
+              <input
+                type="text"
+                class="form-value-input"
+                id="team-one-logo"
+                placeholder="Default.webp"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div class="update-value-div">
+            <p class="form-value-label" id="form-value-label2">
+              Team Two Logo (add to .edit; input file name)
+            </p>
+            <div class="input-div">
+              <input
+                type="text"
+                class="form-value-input"
+                id="team-two-logo"
+                placeholder="Default.webp"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <!-- <h3>Please allow white text to be readable on secondary color</h3>
+          <h4>
+            I was too lazy to add text color for secondary color, the text color
+            right now only applies to primary color
+          </h4> -->
+          <input type="submit" id="submit2" value="Update" />
+        </form>
+      </div>
     </article>
-<!-- Scorebug scripts -->
+    <!-- Scorebug scripts -->
     <script>
-        const findPlayers = (playerGameObj, teamNum) => {
-            let playerList = [];
-            let teamNumList = [];
-            let teamList = [];
-            for(let item in playerGameObj) {
-                if(playerGameObj.hasOwnProperty(item)) {
-                    let value = playerGameObj[item];
-                    playerList.push(item);
-                }
-            }
-            for(let player in playerList) {
-                let primePlayer = playerList[player];
-                if (playerGameObj[primePlayer]['team'] == teamNum) {
-                    teamNumList.push(playerGameObj[primePlayer]["name"]);
-                }
-            }
-            return teamNumList
-        };
-    </script>
-    <script>
-        const secondsToTime = (seconds, ms, showMs, gameObj) => {
-            if (seconds==0) {
-                return "00.0";
-            } if (showMs) {
-                if (ms%1==0) {ms = ms-1}
-                console.log((new Date(ms * 1000).toISOString().substr(showMs ? 17 : 15, 4)));
-                return (new Date(ms * 1000).toISOString().substr(showMs ? 17 : 15, 4));
-            }
-            return (new Date(seconds * 1000).toISOString().substr(showMs ? 17 : 15, 4));
-            
+      const findPlayers = (playerGameObj, teamNum) => {
+        let playerList = [];
+        let teamNumList = [];
+        let teamList = [];
+        for (let item in playerGameObj) {
+          if (playerGameObj.hasOwnProperty(item)) {
+            let value = playerGameObj[item];
+            playerList.push(item);
+          }
         }
+        for (let player in playerList) {
+          let primePlayer = playerList[player];
+          if (playerGameObj[primePlayer]["team"] == teamNum) {
+            teamNumList.push(playerGameObj[primePlayer]["name"]);
+          }
+        }
+        return teamNumList;
+      };
     </script>
-<!-- Server connections -->
+    <script>
+      const secondsToTime = (seconds, ms, showMs, gameObj) => {
+        if (seconds == 0) {
+          return "00.0";
+        }
+        if (showMs) {
+          if (ms % 1 == 0) {
+            ms = ms - 1;
+          }
+          console.log(
+            new Date(ms * 1000).toISOString().substr(showMs ? 17 : 15, 4)
+          );
+          return new Date(ms * 1000).toISOString().substr(showMs ? 17 : 15, 4);
+        }
+        return new Date(seconds * 1000)
+          .toISOString()
+          .substr(showMs ? 17 : 15, 4);
+      };
+    </script>
+    <!-- Server connections -->
     <script type="module">
-        import { valueHandler } from "./scripts/valueHandler.js";
+      import { valueHandler, teamValues } from "./scripts/valueHandler.js";
 
-        (function() {
-            const sendBtn = document.querySelector('#submit1');
-            let ws;
+      (function () {
+        const sendBtn = document.querySelector("#submit1");
+        const teamBtn = document.querySelector("#submit2");
+        let ws;
 
-            const controlPanelInfoHandler = (d) => {
-                $('#series-title').text(d["seriesTitle"]);
-                $('#round-title').text(d["roundTitle"]);
-                $('#series-length-display').text(d["seriesLength"]);
-                $('#game-number-display').text(d["gameNumber"]);
-                if(d.nameOverride) {
-                    $('#team-left').text(d["leftTeamName"]);
-                    $('#team-right').text(d["rightTeamName"]);
+        const controlPanelInfoHandler = (d) => {
+          $("#series-title").text(d["seriesTitle"]);
+          $("#round-title").text(d["roundTitle"]);
+          $("#series-length-display").text(d["seriesLength"]);
+          $("#game-number-display").text(d["gameNumber"]);
+          if (d.nameOverride) {
+            $("#team-left").text(d["leftTeamName"]);
+            $("#team-right").text(d["rightTeamName"]);
+          }
+        };
+
+        function init() {
+          if (ws) {
+            ws.onerror = ws.onopen = ws.onclose = null;
+            ws.close();
+          }
+
+          ws = new WebSocket("ws://localhost:6969");
+          ws.onopen = () => {
+            console.log("Connection opened!");
+          };
+          ws.onmessage = ({ data }) => {
+            try {
+              let d = JSON.parse(data);
+              if (d["event"] == "control-panel-info") {
+                controlPanelInfoHandler(d);
+              }
+              if (d.event == "scorebug-event") {
+                $("#time").text(d["time"]);
+                $("#score-left").text(d["Score Left"]);
+                $("#score-right").text(d["Score Right"]);
+                $("#focused-player").text(
+                  d["Target"] == "" ? "N/A" : d["Target"]
+                );
+
+                let teamOne = d["Team One Roster"];
+                let teamTwo = d["Team Two Roster"];
+
+                for (let i = 0; i < teamOne.length; i++) {
+                  $("#player-name" + (i + 1)).text(teamOne[i]);
+                  $("#bubble-number" + (i + 1)).css(
+                    "background-color",
+                    "rgb(0, 119, 252)"
+                  );
                 }
+                for (let i = 0; i < teamTwo.length; i++) {
+                  $("#player-name" + (i + 5)).text(teamTwo[i]);
+                  $("#bubble-number" + (i + 5)).css(
+                    "background-color",
+                    "rgb(252, 115, 0)"
+                  );
+                }
+              }
+              if (d.event == "end") {
+                gNumber++;
+                $("#game-number-display").text(gNumber);
+              }
+            } catch (e) {
+              console.log("Here is your raw data: " + data);
+              console.log(
+                `There was an error parsing: ${e.message}, this may be due to the string of "Connection opened!"`
+              );
             }
+          };
+          ws.onclose = function () {
+            ws = null;
+          };
+        }
 
-            function init() {
-                if (ws) {
-                    ws.onerror = ws.onopen = ws.onclose = null;
-                    ws.close();
-                }
-
-                ws = new WebSocket('ws://localhost:6969');
-                ws.onopen = () => {
-                    console.log('Connection opened!');
-                }
-                ws.onmessage = ({ data }) => {
-                    try {
-                        let d = JSON.parse(data);
-                        if(d["event"] == "control-panel-info") {
-                            controlPanelInfoHandler(d);
-                        }
-                        if (d.event == "scorebug-event") {
-                            $("#time").text(d["time"]);
-                            $("#score-left").text(d["Score Left"]);
-                            $("#score-right").text(d["Score Right"]);
-                            $("#focused-player").text(d["Target"] == '' ? "N/A" : d["Target"]);
-
-                            let teamOne = d["Team One Roster"];
-                            let teamTwo = d["Team Two Roster"];
-
-                            for (let i = 0; i < teamOne.length; i++) {
-                                $("#player-name" + (i+1)).text(teamOne[i]); 
-                                $("#bubble-number" + (i+1)).css("background-color", "rgb(0, 119, 252)");
-                            } 
-                            for (let i = 0; i < teamTwo.length; i++) {
-                                $("#player-name" + (i+5)).text(teamTwo[i]); 
-                                $("#bubble-number" + (i+5)).css("background-color", "rgb(252, 115, 0)");
-                            }
-                        }
-                    } catch(e) {
-                        console.log('Here is your raw data: ' + data);
-                        console.log(`There was an error parsing: ${e.message}, this may be due to the string of "Connection opened!"`);
-                    }   
-                };
-                ws.onclose = function() {
-                    ws = null;
-                }
-            }
-
-            sendBtn.onclick = function() {
-                let values;
-                if (!ws) {
-                    console.log("No WebSocket connection :(");
-                    return;
-                }
-                ws.send(JSON.stringify(valueHandler()));
-                values = valueHandler;
-                controlPanelInfoHandler(valueHandler());
-            }
-            init();
-        })();
-
-        // $(() => {
-        //     WsSubscribers.init(49322, true);
-
-        //     WsSubscribers.subscribe("game", "update_state", (d) => {
-        //         ws.send(JSON.stringify(d));
-
-        //         $('#score-left').text(d['game']['teams'][0]['score'])
-        //         $('#score-right').text(d['game']['teams'][1]['score'])
-
-        //         //Time updater
-        //         $('#time').text((d['game']['isOT'] ? '+' : '') + secondsToTime(
-        //             d['game']['time_seconds'], d['game']['time_milliseconds'], 
-        //             d['game']['time_seconds'] < 60 && !d['game']['isOT'] && d['game']['time'] != 59, 
-        //             d
-        //         ));
-    
-        //         let teamOne = findPlayers(d['players'], 0);
-        //         let teamTwo = findPlayers(d['players'], 1);
-                
-        //         //Player names
-        //         for (let i = 0; i < teamOne.length; i++) {
-        //             let id = i+1;
-        //             $('#player-name' + id).text(teamOne[i]);
-        //             $('#bubble-number' + id).css("background-color", "rgb(3, 127, 252)");
-        //         }
-        //         for (let i = 0; i < teamTwo.length; i++) {
-        //             let id = i+5;
-        //             $('#player-name' + id).text(teamTwo[i]);
-        //             $('#bubble-number' + id).css("background-color", "orange");
-        //         }
-
-        //         //Focused Player
-        //         let target = d['game']['target'];
-        //         try {
-        //             $('#focused-player').text(d['players'][target]['name']);
-        //         } catch(e) {
-        //             console.log('No player is focused.')
-        //         }
-                
-        //     })
-
-        //     WsSubscribers.subscribe("game", "match_created", (d) => {
-        //         // Team Names
-        //         if (teamOne[1] == null) {
-        //             $('#team-left').text(teamOne[0]);
-        //         } else {
-        //             $('#team-left').text(d['game']['teams'][0]['name']);
-        //         }
-        //         if (teamTwo[1] == null) {
-        //             $('#team-right').text(teamTwo[0]);
-        //         } else {
-        //             $('#team-right').text(d['game']['teams'][1]['name']);
-        //         }
-        //     })
-        // })
-</script>
-</body>
+        sendBtn.onclick = function () {
+          let values;
+          if (!ws) {
+            console.log("No WebSocket connection :(");
+            return;
+          }
+          ws.send(JSON.stringify(valueHandler()));
+          values = valueHandler;
+          controlPanelInfoHandler(valueHandler());
+        };
+        teamBtn.onclick = function () {
+          if (!ws) {
+            console.log("No WebSocket connection :(");
+            return;
+          }
+          ws.send(JSON.stringify(teamValues()));
+        };
+        init();
+      })();
+    </script>
+  </body>
 </html>

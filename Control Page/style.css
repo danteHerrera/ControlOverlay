@@ -119,7 +119,7 @@ input {
     color: black;
 }
 
-#submit1 {
+#submit1, #submit2 {
     border-radius: 5px;
     background-color: rgb(12, 12, 12);
     color: rgb(146, 146, 146);
