@@ -5,444 +5,515 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Overlay Control Panel</title>
-    <link rel="stylesheet" href="./Control Page/style.css" />
+    <!-- <link rel="stylesheet" href="./Control Page/style.css" /> -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&family=Source+Sans+Pro:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    />
     <link
       rel="shortcut icon"
       type="image/x-icon"
       href="Control Page/images/favicon.ico"
     />
-    <!-- <script type="module" src="scripts/valueHandler.js"></script> -->
   </head>
   <body>
     <header>
       <h1>Overlay Control Panel</h1>
     </header>
     <article>
-      <div class="section" id="current-match">
+      <div class="border rounded border-dark m-4 p-4" id="current-match">
         <h2>Current Match</h2>
 
-        <div id="scorebug-info">
-          <p id="score-left" class="scorebug-info-p">0</p>
-          <p class="scorebug-info-p">-</p>
-          <p id="time" class="scorebug-info-p">5:00</p>
-          <p class="scorebug-info-p">-</p>
-          <p id="score-right" class="scorebug-info-p">0</p>
+        <div
+          id="scorebug-info"
+          class="d-flex justify-content-center align-items-center"
+        >
+          <p class="m-0 fs-4">
+            <b>
+              <span id="score-left">0</span> - <span id="time">5:00</span> -
+              <span id="score-right">0</span>
+            </b>
+          </p>
         </div>
 
-        <div id="team-info">
-          <p id="team-left" class="team-info-p">Blue</p>
-          <p id="vs" class="team-info-p">VS</p>
-          <p id="team-right" class="team-info-p">Orange</p>
+        <div
+          id="team-info"
+          class="d-flex justify-content-center align-items-center"
+        >
+          <p class="m-0 fs-4">
+            <b>
+              <span id="team-left">Blue</span> VS
+              <span id="team-right">Orange</span>
+            </b>
+          </p>
         </div>
       </div>
 
-      <div class="section" id="camera-info">
+      <div class="border rounded border-dark m-4 p-4" id="camera-info">
         <h2>Camera Information</h2>
-        <div id="focused-player-div">
+        <div
+          id="focused-player-div"
+          class="mx-auto"
+          style="width: 200px; text-align: center"
+        >
           <p class="focused-player">
             Focused player: <span id="focused-player">N/A</span>
           </p>
         </div>
 
-        <div id="players-div">
-          <div class="players" id="blue-player-1">
-            <p id="player-name1">-</p>
-            <div class="bubble" id="bubble-number1">
-              <p class="bubble-number">1</p>
-            </div>
-          </div>
-          <div class="players" id="blue-player-2">
-            <p id="player-name2">-</p>
-            <div class="bubble" id="bubble-number2">
-              <p class="bubble-number">2</p>
-            </div>
-          </div>
-          <div class="players" id="blue-player-3">
-            <p id="player-name3">-</p>
-            <div class="bubble" id="bubble-number3">
-              <p class="bubble-number">3</p>
-            </div>
-          </div>
-          <div class="players" id="blue-player-4">
-            <p id="player-name4">-</p>
-            <div class="bubble" id="bubble-number4">
-              <p class="bubble-number">4</p>
-            </div>
-          </div>
-          <div class="players" id="orange-player-1">
-            <p id="player-name5">-</p>
-            <div class="bubble" id="bubble-number5">
-              <p class="bubble-number">5</p>
-            </div>
-          </div>
-          <div class="players" id="orange-player-2">
-            <p id="player-name6">-</p>
-            <div class="bubble" id="bubble-number6">
-              <p class="bubble-number">6</p>
-            </div>
-          </div>
-          <div class="players" id="orange-player-3">
-            <p id="player-name7">-</p>
-            <div class="bubble" id="bubble-number7">
-              <p class="bubble-number">7</p>
-            </div>
-          </div>
-          <div class="players" id="orange-player-4">
-            <p id="player-name8">-</p>
-            <div class="bubble" id="bubble-number8">
-              <p class="bubble-number">8</p>
-            </div>
-          </div>
-          <div class="players" id="spec-cam1">
-            <p>Director</p>
+        <div id="players-div" class="container">
+          <div class="row">
             <div
-              class="bubble"
-              id="bubble-number9"
-              style="background-color: rgb(240, 240, 240)"
+              class="col-sm d-flex flex-column align-items-center"
+              id="blue-player-1"
             >
-              <p class="bubble-number">9</p>
+              <p id="player-name1">-</p>
+              <span class="badge bg-secondary fs-4 px-4" id="bubble-number1"
+                >1</span
+              >
             </div>
-          </div>
-          <div class="players" id="spec-cam2">
-            <p>Autocam</p>
-            <div class="bubble" id="bubble-number0">
-              <p class="bubble-number">0</p>
+            <div
+              class="col-sm d-flex flex-column align-items-center"
+              id="blue-player-2"
+            >
+              <p id="player-name2">-</p>
+              <span class="badge bg-secondary fs-4 px-4" id="bubble-number2"
+                >2</span
+              >
+            </div>
+            <div
+              class="col-sm d-flex flex-column align-items-center"
+              id="blue-player-3"
+            >
+              <p id="player-name3">-</p>
+              <span class="badge bg-secondary fs-4 px-4" id="bubble-number3"
+                >3</span
+              >
+            </div>
+            <div
+              class="col-sm d-flex flex-column align-items-center"
+              id="blue-player-4"
+            >
+              <p id="player-name4">-</p>
+              <span class="badge bg-secondary fs-4 px-4" id="bubble-number4"
+                >4</span
+              >
+            </div>
+            <div
+              class="col-sm d-flex flex-column align-items-center"
+              id="orange-player-1"
+            >
+              <p id="player-name5">-</p>
+              <span class="badge bg-secondary fs-4 px-4" id="bubble-number5"
+                >5</span
+              >
+            </div>
+            <div
+              class="col-sm d-flex flex-column align-items-center"
+              id="orange-player-2"
+            >
+              <p id="player-name6">-</p>
+              <span class="badge bg-secondary fs-4 px-4" id="bubble-number6"
+                >6</span
+              >
+            </div>
+            <div
+              class="col-sm d-flex flex-column align-items-center"
+              id="orange-player-3"
+            >
+              <p id="player-name7">-</p>
+              <span class="badge bg-secondary fs-4 px-4" id="bubble-number7"
+                >7</span
+              >
+            </div>
+            <div
+              class="col-sm d-flex flex-column align-items-center"
+              id="orange-player-4"
+            >
+              <p id="player-name8">-</p>
+              <span class="badge bg-secondary fs-4 px-4" id="bubble-number8"
+                >8</span
+              >
+            </div>
+            <div
+              class="col-sm d-flex flex-column align-items-center"
+              id="spec-cam1"
+            >
+              <p>Director</p>
+              <span
+                class="badge bg-light border border-dark text-dark fs-4 px-4"
+                id="bubble-number9"
+                >9</span
+              >
+            </div>
+            <div
+              class="col-sm d-flex flex-column align-items-center"
+              id="spec-cam2"
+            >
+              <p>Autocam</p>
+              <span class="badge bg-secondary fs-4 px-4" id="bubble-number0"
+                >0</span
+              >
             </div>
           </div>
         </div>
       </div>
 
-      <div class="section" id="stream-info">
+      <div class="border rounded border-dark m-4 p-4" id="stream-info">
         <h2>Stream Information</h2>
-        <div class="stream-info-div" id="series-title-div">
+        <div
+          class="d-flex justify-content-center align-items-center flex-column"
+          id="series-title-div"
+        >
           <h3>Series Title</h3>
           <p id="series-title">WISHEA Regular Season</p>
         </div>
-        <div class="stream-info-div" id="round-title-div">
+        <div
+          class="d-flex justify-content-center align-items-center flex-column"
+          id="round-title-div"
+        >
           <h3>Round Title</h3>
           <p id="round-title">Week 1 | WSHS | BO7</p>
         </div>
-        <div class="stream-info-div" id="series-details-div">
+        <div
+          class="d-flex justify-content-center align-items-center flex-column"
+          id="series-details-div"
+        >
           <h3>Series Details</h3>
           <p>Series Length: <span id="series-length-display">5</span></p>
           <p>Game Number: <span id="game-number-display">1</span></p>
         </div>
       </div>
 
-      <div class="section" id="update-values">
+      <div class="border rounded border-dark m-4 p-4" id="update-values">
         <h2>Update Values</h2>
         <form class="form-values" id="form-values1" onsubmit="return false;">
           <!-- add action="javascript file here" to form divider ^^ -->
 
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label1">Series Title:</p>
             <div class="input-div">
               <input
                 type="text"
-                class="form-value-input"
+                class="form-control"
                 id="form-value-input1"
                 placeholder="WIHSEA Regular Season"
                 autocomplete="off"
               />
             </div>
           </div>
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label2">Round Title:</p>
             <div class="input-div">
               <input
                 type="text"
-                class="form-value-input"
+                class="form-control"
                 id="form-value-input2"
                 placeholder="Week 1 | WSHS | BO7"
                 autocomplete="off"
               />
             </div>
           </div>
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label3">
               Series Length:
             </p>
-            <div id="series-length" class="input-div">
-              <label
-                class="series-length-label"
-                id="series-length1"
-                for="series-length1"
-                >1</label
-              >
+            <div id="series-length" class="btn-group">
               <input
                 type="radio"
-                class="series-length"
+                class="btn-check"
                 id="series-length1"
                 name="series-length"
               />
+              <label class="btn btn-outline-primary" for="series-length1"
+                >1</label
+              >
 
-              <label class="series-length-label" for="series-length3">3</label>
               <input
                 type="radio"
-                class="series-length"
+                class="btn-check"
                 id="series-length3"
                 name="series-length"
               />
+              <label class="btn btn-outline-primary" for="series-length3"
+                >3</label
+              >
 
-              <label class="series-length-label" for="series-length5">5</label>
               <input
                 type="radio"
-                class="series-length"
+                class="btn-check"
                 id="series-length5"
                 name="series-length"
               />
+              <label class="btn btn-outline-primary" for="series-length5"
+                >5</label
+              >
 
-              <label class="series-length-label" for="series-length7">7</label>
               <input
                 type="radio"
-                class="series-length"
+                class="btn-check"
                 id="series-length7"
                 name="series-length"
               />
+              <label class="btn btn-outline-primary" for="series-length7"
+                >7</label
+              >
             </div>
           </div>
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label4">Game Number:</p>
-            <div id="game-number" class="input-div">
-              <label
-                class="game-number-label"
-                id="game-number1"
-                for="game-number1"
-                >1</label
-              >
+            <div id="game-number" class="btn-group" role="group">
               <input
                 type="radio"
-                class="game-number"
+                class="btn-check"
                 id="game-number1"
                 name="game-number"
               />
+              <label class="btn btn-outline-primary" for="game-number1"
+                >1</label
+              >
 
-              <label class="game-number-label" for="game-number2">2</label>
               <input
                 type="radio"
-                class="game-number"
+                class="btn-check"
                 id="game-number2"
                 name="game-number"
               />
+              <label class="btn btn-outline-primary" for="game-number2"
+                >2</label
+              >
 
-              <label class="game-number-label" for="game-number3">3</label>
               <input
                 type="radio"
-                class="game-number"
+                class="btn-check"
                 id="game-number3"
                 name="game-number"
               />
+              <label class="btn btn-outline-primary" for="game-number3"
+                >3</label
+              >
 
-              <label class="game-number-label" for="game-number4">4</label>
               <input
                 type="radio"
-                class="game-number"
+                class="btn-check"
                 id="game-number4"
                 name="game-number"
               />
+              <label class="btn btn-outline-primary" for="game-number4"
+                >4</label
+              >
 
-              <label class="game-number-label" for="game-number5">5</label>
               <input
                 type="radio"
-                class="game-number"
+                class="btn-check"
                 id="game-number5"
                 name="game-number"
               />
+              <label class="btn btn-outline-primary" for="game-number5"
+                >5</label
+              >
 
-              <label class="game-number-label" for="game-number6">6</label>
               <input
                 type="radio"
-                class="game-number"
+                class="btn-check"
                 id="game-number6"
                 name="game-number"
               />
+              <label class="btn btn-outline-primary" for="game-number6"
+                >6</label
+              >
 
-              <label class="game-number-label" for="game-number7">7</label>
               <input
                 type="radio"
-                class="game-number"
+                class="btn-check"
                 id="game-number7"
                 name="game-number"
               />
+              <label class="btn btn-outline-primary" for="game-number7"
+                >7</label
+              >
             </div>
           </div>
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label5">
               Left Team Name:
             </p>
             <div class="input-div">
               <input
                 type="text"
-                class="form-value-input"
+                class="form-control"
                 id="form-value-input5"
                 placeholder="Oak Creek"
                 autocomplete="off"
               />
             </div>
           </div>
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label6">
               Right Team Name:
             </p>
             <div class="input-div">
               <input
                 type="text"
-                class="form-value-input"
+                class="form-control"
                 id="form-value-input6"
                 placeholder="Waukesha South"
                 autocomplete="off"
               />
             </div>
           </div>
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label7">
               Left Team Series Score:
             </p>
             <div class="input-div">
               <input
                 type="number"
-                class="form-value-input"
+                class="form-control"
                 id="form-value-input7"
                 placeholder="0"
                 autocomplete="off"
               />
             </div>
           </div>
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label8">
               Right Team Series Score:
             </p>
             <div class="input-div">
               <input
                 type="number"
-                class="form-value-input"
+                class="form-control"
                 id="form-value-input8"
                 placeholder="2"
                 autocomplete="off"
               />
             </div>
           </div>
-          <input type="submit" id="submit1" value="Update" />
+          <input
+            type="submit"
+            id="submit1"
+            value="Update"
+            class="btn btn-primary"
+          />
         </form>
       </div>
 
-      <div class="section" id="styling">
+      <div class="border rounded border-dark m-4 p-4" id="styling">
         <h2>Styling (WIP - color and image in the works!)</h2>
         <h3>idk when it will be done its difficult my guy</h3>
         <form id="team-values" class="form-values" onsubmit="return false;">
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label2">
               Team One Primary Color:
             </p>
             <div class="input-div">
               <input
                 type="text"
-                class="form-value-input"
+                class="form-control"
                 id="team-one-prim"
                 placeholder="#ffffff"
                 autocomplete="off"
               />
             </div>
           </div>
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label2">
               Team One Secondary Color:
             </p>
             <div class="input-div">
               <input
                 type="text"
-                class="form-value-input"
+                class="form-control"
                 id="team-one-sec"
                 placeholder="#ffffff"
                 autocomplete="off"
               />
             </div>
           </div>
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label2">
               Team Two Primary Color:
             </p>
             <div class="input-div">
               <input
                 type="text"
-                class="form-value-input"
+                class="form-control"
                 id="team-two-prim"
                 placeholder="#ffffff"
                 autocomplete="off"
               />
             </div>
           </div>
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label2">
               Team Two Secondary Color:
             </p>
             <div class="input-div">
               <input
                 type="text"
-                class="form-value-input"
+                class="form-control"
                 id="team-two-sec"
                 placeholder="#ffffff"
                 autocomplete="off"
               />
             </div>
           </div>
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label2">
               Team One Text Color:
             </p>
             <div class="input-div">
               <input
                 type="text"
-                class="form-value-input"
+                class="form-control"
                 id="team-one-text"
                 placeholder="i dont think these work rn"
                 autocomplete="off"
               />
             </div>
           </div>
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label2">
               Team Two Text Color:
             </p>
             <div class="input-div">
               <input
                 type="text"
-                class="form-value-input"
+                class="form-control"
                 id="team-two-text"
                 placeholder="i dont think these work rn"
                 autocomplete="off"
               />
             </div>
           </div>
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label2">
-              Team One Logo (add to 0-EDITME and just input file name)
+              Team One Logo (add to .edit; input file name)
             </p>
             <div class="input-div">
               <input
                 type="text"
-                class="form-value-input"
+                class="form-control"
                 id="team-one-logo"
                 placeholder="Default.webp"
                 autocomplete="off"
               />
             </div>
           </div>
-          <div class="update-value-div">
+          <div class="my-4">
             <p class="form-value-label" id="form-value-label2">
               Team Two Logo (add to .edit; input file name)
             </p>
             <div class="input-div">
               <input
                 type="text"
-                class="form-value-input"
+                class="form-control"
                 id="team-two-logo"
                 placeholder="Default.webp"
                 autocomplete="off"
@@ -454,7 +525,12 @@
             I was too lazy to add text color for secondary color, the text color
             right now only applies to primary color
           </h4> -->
-          <input type="submit" id="submit2" value="Update" />
+          <input
+            type="submit"
+            id="submit2"
+            value="Update"
+            class="btn btn-primary"
+          />
         </form>
       </div>
     </article>
